@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ii pair<int,int>
+struct node{
+    int data;
+    node *left , *right;
+    node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+void insertnode(node *&root ,int x){ //truyen tham chieu *&root de de dang thay doi
+    if(root == NULL){
+        root = new node(x);
+        return;
+    }
+    else if(x < root->data)insertnode(root->left , x);
+    else insertnode(root->right , x);
+}
+int minnode(node *&root){
+    if(root -> left == NULL){
+        int tmp = root->data;
+        root = NULL;
+        return tmp;
+    }
+    else return minnode(root->left);
+}
+void DELETE(node *&root , int x){ // truyen tham chieu *&root de de dang thay doi
+    if(root == NULL)return;
+    if(root -> data == x){
+        if(root -> left == NULL && root -> right == NULL) root = NULL ; // node can xoa la node la
+        else if(root -> right != NULL){ // node can xoa co node ben phai
+            root->data = minnode(root->right);
+        }
+        else if( root -> left != NULL){ // node can xoa co node ben trai
+//            root->data = root -> left->data;
+            root = root ->left;
+        }
+    }
+    else if( root->data < x)DELETE(root->right , x); // re phai
+    else DELETE(root->left , x); //re trai
+}
+void in(node* root){
+    if(root == NULL)return;
+    in(root -> left);
+    cout<<root ->data<<" ";
+    in(root -> right);
+}
+int main(){
+   int n;
+   cin >> n;
+   node *root = NULL;
+   while(n--){
+       int x;
+       cin >>x;
+       insertnode(root , x);
+   }
+   int x;
+   cin >>x;
+   DELETE(root,x);
+   in(root);
+}
