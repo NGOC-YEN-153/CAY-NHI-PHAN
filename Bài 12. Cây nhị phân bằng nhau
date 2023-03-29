@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ii pair<int,int>
+//struct node{
+//    int data;
+//    node *left , *right;
+//    node(int x){
+//        data = x;
+//        left= right = NULL;
+//    }
+//};
+//void makenode(node *root , int u ,int v ,char c){// bien thangg NULL trai or phai thanh khong NULL
+//    if(c == 'L')root-> left = new node(v);
+//    else root -> right = new node(v);    
+//}
+//void find (node *root , int u , int v ,char c){
+//    if(root == NULL)return;
+//    if(root -> data == u)makenode(root , u , v , c);
+//    else find(root->left , u, v ,c) , find(root->right , u ,v, c);
+//}
+//set<int> se;
+//int ok = 1;
+//void in(node *root , int cnt){
+//    if(root == NULL)return;
+//    if(!ok)return;
+//    if(root -> left == NULL && root -> right == NULL){
+//        se.insert(cnt);
+//    }
+//    if(!(root -> left == NULL && root -> right == NULL)){
+//        ok = 0;
+//        return;
+//    }
+//        in(root -> left , cnt + 1 );
+//        in(root -> right , cnt + 1);
+//}
+struct  tree{
+    int x , y;
+    char c;
+};
+void solve(){
+      int n1 , n2;
+      cin >> n1;
+      map<string, bool>mp;
+      for(int i=0 ; i< n1 ; i++){
+          int x  , y;
+          char c;
+          cin>> x >>y >>c;
+          string s = to_string(x) + to_string(y) + string(1 , c);
+          mp[s] = true;
+      }
+     cin >> n2;
+    if(n1 != n2){
+        cout<<"NO";
+        return;
+    }
+      for(int i=0 ; i< n2 ; i++){
+          int x  , y;
+          char c;
+          cin >> x >> y >> c;
+          string s = to_string(x) + to_string(y) + string(1 , c);
+          if(!mp[s]){
+              cout<<"NO";
+              return;
+          }
+      }
+      cout<<"YES";
+}
+int main(){
+//   int n;
+//   cin >> n;
+//   node *root = NULL;
+//   while(n--){
+//       int u , v;
+//       char c;
+//       cin >> u >> v >> c;
+//       if(root == NULL){
+//           root = new node(u);
+//           makenode(root , u, v ,c);
+//       }
+//    else find(root , u , v , c);
+//   }
+//   in(root, 0);
+//   if(se.size()==1 && ok )cout<<"YES";
+//   else cout<<"NO";
+solve();
+}
+
+
