@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ii pair<int,int>
+struct node{
+    int data;
+    node *left , *right;
+    node(int x){
+        data = x;
+        left= right = NULL;
+    }
+};
+void makenode(node *&root ,int x){
+    if(root == NULL){
+        root = new node(x);
+        return;
+    }
+    else if(x <= root->data)makenode(root->left , x);
+    else makenode(root->right , x);
+}
+node* findmaxx(node* root){
+    if(root->right == NULL)return root;
+    return findmaxx(root->right);
+}
+node* findminn(node *root){
+    if(root->left == NULL)return root;
+    return findminn(root->left);
+}
+int main(){
+   int n;
+   cin >> n;
+   node *root = NULL;
+   while(n--){
+       int x;
+       cin >>x;
+    makenode(root , x);
+   }
+   cout<<findmaxx(root)->data<<" "<<findminn(root)->data;
+}
