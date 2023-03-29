@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ii pair<int,int>
+struct node {
+    int data ;
+    node* left , *right ;
+    node(int x){
+        data = x;
+        left = right = NULL;
+    }    
+};
+void makenode(node* root , int data , char c){
+    if(c == 'L') root -> left = new node(data);
+    else root -> right = new node(data);
+}
+void find(node* root ,int u ,int v ,int c){
+    if(root == NULL)return;
+    if(root -> data == u)makenode(root  , v ,c);
+    else {
+        find(root->left , u, v, c);
+        find(root -> right , u , v , c);
+    }
+}
+void in(node* root){
+    if(root == NULL)return;
+    cout<<root->data<<" " ;
+    in(root -> right);
+    in(root -> left);
+}
+int main(){
+   int n;
+   cin >>n;
+   node* root = NULL;
+   while(n--){
+           int u , v;
+           char c;
+           cin >>u >>v>>c;
+           if(root ==NULL){
+               root = new node(u);
+            makenode(root,v,c);    
+        }
+        else find(root , u ,v, c);
+   }
+   in(root);
+}
+
+
