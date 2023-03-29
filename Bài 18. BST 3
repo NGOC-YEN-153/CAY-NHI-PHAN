@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ii pair<int,int>
+struct node{
+    int data;
+    node *left , *right;
+    node(int x){
+        data = x;
+        left= right = NULL;
+    }
+};
+void makenode(node *&root ,int x){
+    if(root == NULL){
+        root = new node(x);
+        return;
+    }
+    else if(x <= root->data)makenode(root->left , x);
+    else makenode(root->right , x);
+}
+void in(node *root){
+    if(root == NULL)return;
+    in(root ->left);
+    in(root -> right);
+    cout<<root ->data<<" ";
+}
+int main(){
+   int n;
+   cin >> n;
+   node *root = NULL;
+   while(n--){
+       int x;
+       cin >>x;
+    makenode(root , x);
+   }
+   in(root);
+}
