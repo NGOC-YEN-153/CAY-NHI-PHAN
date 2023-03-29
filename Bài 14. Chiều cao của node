@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ii pair<int,int>
+struct node{
+    int data;
+    node *left , *right;
+    node(int x){
+        data = x;
+        left= right = NULL;
+    }
+};
+void makenode(node *root , int u ,int v ,char c){// bien thangg NULL trai or phai thanh khong NULL
+    if(c == 'L')root-> left = new node(v);
+    else root -> right = new node(v);    
+}
+void find (node *root , int u , int v ,char c){
+    if(root == NULL)return;
+    if(root -> data == u)makenode(root , u , v , c);
+    else find(root->left , u, v ,c) , find(root->right , u ,v, c);
+}
+void in(node *root){
+    queue<pair<node* , int>> q;
+    q.push({root , 0 });
+    while(q.size()){
+        auto x = q.front() ; q.pop();
+        if(x.first == NULL)continue;
+        auto u = x.first;
+        auto w = x.second;
+        cout<<w<<" ";
+        q.push({ u->left , w +1});
+        q.push({ u -> right , w +1}) ; 
+    }
+}
+int main(){
+   int n;
+   cin >> n;
+   node *root = NULL;
+   while(n--){
+       int u , v;
+       char c;
+       cin >> u >> v >> c;
+       if(root == NULL){
+           root = new node(u);
+           makenode(root , u, v ,c);
+       }
+       else find(root , u , v , c);
+   }
+   in(root);
+}
+
+
