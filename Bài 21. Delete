@@ -10,7 +10,7 @@ struct node{
         left = right = NULL;
     }
 };
-void insertnode(node *&root ,int x){ //truyen tham chieu *&root de de dang thay doi
+void insertnode(node *&root ,int x){
     if(root == NULL){
         root = new node(x);
         return;
@@ -18,23 +18,23 @@ void insertnode(node *&root ,int x){ //truyen tham chieu *&root de de dang thay 
     else if(x < root->data)insertnode(root->left , x);
     else insertnode(root->right , x);
 }
-int minnode(node *&root){
-    if(root -> left == NULL){
+int minnode(node *&root){ // tim den node co gia tri lon hon gia tri can xoa va nho nhat (mong muon tim node la)
+    if(root -> left == NULL){ // neu tim thay
         int tmp = root->data;
-        root = NULL;
         return tmp;
     }
     else return minnode(root->left);
 }
-void DELETE(node *&root , int x){ // truyen tham chieu *&root de de dang thay doi
+void DELETE(node *&root , int x){ 
     if(root == NULL)return;
     if(root -> data == x){
         if(root -> left == NULL && root -> right == NULL) root = NULL ; // node can xoa la node la
         else if(root -> right != NULL){ // node can xoa co node ben phai
-            root->data = minnode(root->right);
+            int tmp=minnode(root->right);
+            root->data = tmp;
+            DELETE(root->right ,tmp );
         }
         else if( root -> left != NULL){ // node can xoa co node ben trai
-//            root->data = root -> left->data;
             root = root ->left;
         }
     }
